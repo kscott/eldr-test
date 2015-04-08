@@ -79,6 +79,8 @@ GEM
     net-scp (1.2.1)
       net-ssh (>= 2.6.5)
     net-ssh (2.9.2)
+    oat (0.4.6)
+      activesupport
     pry (0.10.1)
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
@@ -158,7 +160,9 @@ DEPENDENCIES
   eldr
   factory_girl
   grape
+  i18n
   mysql2
+  oat
   pry-byebug
   rack-oauth2
   rack-test
