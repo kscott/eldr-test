@@ -1,1 +1,2 @@
 --color --format=documentation --require spec_helper --deprecation-out /dev/null
+--format=Nc

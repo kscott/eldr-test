@@ -2,11 +2,9 @@ require "rubygems"
 require "bundler"
 
 Bundler.require
-
 Dotenv.load
 
-require_relative 'app'
+$LOAD_PATH.unshift __dir__
+require_all(File.join(__dir__, "app"))
 
-# run App
-#
-run API
+run Api::Base

@@ -1,4 +1,4 @@
-describe API do
+describe Api::Base do
   let(:app) { Rack::Test::Session.new(described_class.new) }
 
   it "has methods for all http verbs" do
@@ -9,6 +9,11 @@ describe API do
 
   it "returns 200 for the /status endpoint" do
     response = app.get "/status"
+    expect(response.status).to eq(200)
+  end
+
+  it "has a /me endpoint" do
+    response = app.get "/me"
     expect(response.status).to eq(200)
   end
 end
