@@ -1,0 +1,210 @@
+# MySQL.  Versions 4.1 and 5.0 are recommended.
+#
+# Install the MYSQL driver
+#   gem install mysql2
+#
+# Ensure the MySQL gem is defined in your Gemfile
+#   gem 'mysql2'
+#
+# And be sure to use new-style password hashing:
+#   http://dev.mysql.com/doc/refman/5.0/en/old-client.html
+church_development:
+  adapter: mysql2
+  strict: false
+  encoding: utf8
+  pool: 5
+  # reaping_frequency: 10
+  username: <%= ENV['CHURCH_DB_USERNAME'] %>
+  password: <%= ENV['CHURCH_DB_PASSWORD'] %>
+  reconnect: true
+  cast: false
+  flags: <%= 65536 | 131072 %>
+
+church_test:
+  adapter: mysql2
+  strict: false
+  encoding: utf8
+  pool: 5
+  # reaping_frequency: 10
+  username: <%= ENV['CHURCH_DB_USERNAME'] %>
+  password: <%= ENV['CHURCH_DB_PASSWORD'] %>
+  reconnect: true
+  cast: false
+  flags: <%= 65536 | 131072 %>
+
+church_production:
+  adapter: mysql2
+  strict: false
+  encoding: utf8
+  pool: 5
+  # reaping_frequency: 10
+  username: <%= ENV['CHURCH_DB_USERNAME'] %>
+  password: <%= ENV['CHURCH_DB_PASSWORD'] %>
+  reconnect: true
+  cast: false
+  flags: <%= 65536 | 131072 %>
+
+company_development:
+  adapter: mysql2
+  strict: false
+  encoding: utf8
+  database: ccbcompany
+  pool: 5
+  # reaping_frequency: 10
+  host: <%= ENV['COMPANY_DB_HOST'] %>
+  username: <%= ENV['COMPANY_DB_USERNAME'] %>
+  password: <%= ENV['COMPANY_DB_PASSWORD'] %>
+  reconnect: true
+  cast: false
+  flags: <%= 65536 | 131072 %>
+
+company_test:
+  adapter: mysql2
+  strict: false
+  encoding: utf8
+  database: ccbcompany
+  pool: 5
+  # reaping_frequency: 10
+  host: <%= ENV['COMPANY_DB_HOST'] %>
+  username: <%= ENV['COMPANY_DB_USERNAME'] %>
+  password: <%= ENV['COMPANY_DB_PASSWORD'] %>
+  reconnect: true
+  cast: false
+  flags: <%= 65536 | 131072 %>
+
+company_production:
+  adapter: mysql2
+  strict: false
+  encoding: utf8
+  database: ccbcompany
+  pool: 5
+  # reaping_frequency: 10
+  host: <%= ENV['COMPANY_DB_HOST'] %>
+  username: <%= ENV['COMPANY_DB_USERNAME'] %>
+  password: <%= ENV['COMPANY_DB_PASSWORD'] %>
+  reconnect: true
+  cast: false
+  flags: <%= 65536 | 131072 %>
+
+inter_development:
+  adapter: mysql2
+  strict: false
+  encoding: utf8
+  database: ccb_inter
+  pool: 5
+  # reaping_frequency: 10
+  host: <%= ENV['INTER_DB_HOST'] %>
+  username: <%= ENV['INTER_DB_USERNAME'] %>
+  password: <%= ENV['INTER_DB_PASSWORD'] %>
+  reconnect: true
+  cast: false
+  flags: <%= 65536 | 131072 %>
+
+inter_test:
+  adapter: mysql2
+  strict: false
+  encoding: utf8
+  database: ccb_inter
+  pool: 5
+  # reaping_frequency: 10
+  host: <%= ENV['INTER_DB_HOST'] %>
+  username: <%= ENV['INTER_DB_USERNAME'] %>
+  password: <%= ENV['INTER_DB_PASSWORD'] %>
+  reconnect: true
+  cast: false
+  flags: <%= 65536 | 131072 %>
+
+inter_production:
+  adapter: mysql2
+  strict: false
+  encoding: utf8
+  database: ccb_inter
+  pool: 5
+  # reaping_frequency: 10
+  host: <%= ENV['INTER_DB_HOST'] %>
+  username: <%= ENV['INTER_DB_USERNAME'] %>
+  password: <%= ENV['INTER_DB_PASSWORD'] %>
+  reconnect: true
+  cast: false
+  flags: <%= 65536 | 131072 %>
+
+email_development:
+  adapter: mysql2
+  strict: false
+  encoding: utf8
+  database: emaildb
+  reconnect: true
+  pool: 5
+  # reaping_frequency: 10
+  host: <%= ENV['EMAIL_DB_HOST'] %>
+  username: <%= ENV['EMAIL_DB_USERNAME'] %>
+  password: <%= ENV['EMAIL_DB_PASSWORD'] %>
+  flags: <%= 65536 | 131072 %>
+
+email_test:
+  adapter: mysql2
+  strict: false
+  encoding: utf8
+  database: emaildb
+  reconnect: true
+  pool: 5
+  # reaping_frequency: 10
+  host: <%= ENV['EMAIL_DB_HOST'] %>
+  username: <%= ENV['EMAIL_DB_USERNAME'] %>
+  password: <%= ENV['EMAIL_DB_PASSWORD'] %>
+  flags: <%= 65536 | 131072 %>
+
+email_production:
+  adapter: mysql2
+  strict: false
+  encoding: utf8
+  database: emaildb
+  reconnect: true
+  pool: 5
+  # reaping_frequency: 10
+  host: <%= ENV['EMAIL_DB_HOST'] %>
+  username: <%= ENV['EMAIL_DB_USERNAME'] %>
+  password: <%= ENV['EMAIL_DB_PASSWORD'] %>
+  flags: <%= 65536 | 131072 %>
+
+development:
+  adapter: mysql2
+  strict: false
+  encoding: utf8
+  database: ccb_inter
+  reconnect: true
+  pool: 5
+  # reaping_frequency: 10
+  host: <%= ENV['INTER_DB_HOST'] %>
+  username: <%= ENV['INTER_DB_USERNAME'] %>
+  password: <%= ENV['INTER_DB_PASSWORD'] %>
+  cast: false
+  flags: <%= 65536 | 131072 %>
+
+test:
+  adapter: mysql2
+  strict: false
+  encoding: utf8
+  database: ccb_inter
+  reconnect: true
+  pool: 5
+  # reaping_frequency: 10
+  host: <%= ENV['INTER_DB_HOST'] %>
+  username: <%= ENV['INTER_DB_USERNAME'] %>
+  password: <%= ENV['INTER_DB_PASSWORD'] %>
+  cast: false
+  flags: <%= 65536 | 131072 %>
+
+production:
+  adapter: mysql2
+  strict: false
+  encoding: utf8
+  database: ccb_inter
+  reconnect: true
+  pool: 5
+  # reaping_frequency: 10
+  host: <%= ENV['INTER_DB_HOST'] %>
+  username: <%= ENV['INTER_DB_USERNAME'] %>
+  password: <%= ENV['INTER_DB_PASSWORD'] %>
+  cast: false
+  flags: <%= 65536 | 131072 %>

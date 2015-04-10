@@ -1,21 +1,21 @@
 module Church
-  class Individual < ::ActiveRecord::Base
+  class Individual < ::Church::Base
     scope :active, -> { where("individual.inactive != '1'") }
     SITE_KEY = "283136f4c0a55d06821f8dd236a4ddef"
     # devise :database_authenticatable
     self.table_name = "individual"
     belongs_to :campus
-    # has_many :individual_groups
-    # has_many :groups, through: :individual_groups
-    # has_many :individual_events
-    # has_many :events, through: :individual_events
-    # has_many :notes
-    # has_one :mobile_carrier, primary_key: :phone_mobile_sms_carrier_id, foreign_key: :id, class_name: "::Church::Lists::MobileCarrier"
-    # belongs_to :family
-    # has_many :family_members, ->(individual) { where.not id: individual.id }, through: :family, source: :members
-    # has_many :assignments, class_name: "ScheduleDetailAssignment"
-    # has_many :attendance_records, class_name: EventAttendee
-    # has_one :extra_info, class_name: ::Church::Individual::ExtraInfo
+    has_many :individual_groups
+    has_many :groups, through: :individual_groups
+    has_many :individual_events
+    has_many :events, through: :individual_events
+    has_many :notes
+    has_one :mobile_carrier, primary_key: :phone_mobile_sms_carrier_id, foreign_key: :id, class_name: "::Church::Lists::MobileCarrier"
+    belongs_to :family
+    has_many :family_members, ->(individual) { where.not id: individual.id }, through: :family, source: :members
+    has_many :assignments, class_name: "ScheduleDetailAssignment"
+    has_many :attendance_records, class_name: EventAttendee
+    has_one :extra_info, class_name: ::Church::Individual::ExtraInfo
 
     alias_attribute :encrypted_password, :hashed_password
     alias_attribute :encrypted_password=, :hashed_password=
@@ -141,24 +141,22 @@ module Church
       {access: token_access, document: token_doc, rss: token_rss}
     end
 
-    # def asset_manager(type)
-    #   if type == :files
-    #     @individual_files ||= ::AssetManager::build(type: :individual_files, object: self, organization: ::Company::OrganizationApplication.current)
-    #   elsif type == :image
-    #     @individual_images ||= ::AssetManager::build(type: :individual_image, object: self, organization: ::Company::OrganizationApplication.current)
-    #   else
-    #     raise NotImplementedError
-    #   end
-    # end
+    def asset_manager(type)
+      if type == :files
+        @individual_files ||= ::AssetManager::build(type: :individual_files, object: self, organization: ::Company::OrganizationApplication.current)
+      elsif type == :image
+        @individual_images ||= ::AssetManager::build(type: :individual_image, object: self, organization: ::Company::OrganizationApplication.current)
+      else
+        raise NotImplementedError
+      end
+    end
 
     def image(size = :medium, shape = :square)
-      # asset_manager(:image).path(::AssetManager::IMAGE_SIZES[size], shape)
-      ""
+      asset_manager(:image).path(::AssetManager::IMAGE_SIZES[size], shape)
     end
 
     def all_images(shape = :square)
-      # Hash[::AssetManager::IMAGE_SIZES.each_key.map{|size| [size, self.image(size, shape)]}]
-      {}
+      Hash[::AssetManager::IMAGE_SIZES.each_key.map{|size| [size, self.image(size, shape)]}]
     end
 
 
@@ -170,30 +168,30 @@ module Church
       !picture.empty?
     end
 
-    # def groups_led
-    #   groups.where(individual_groups: {status_id: 1})
-    # end
+    def groups_led
+      groups.where(individual_groups: {status_id: 1})
+    end
 
-    # def led_by?(leader)
-    #   leader.leads?(self)
-    # end
+    def led_by?(leader)
+      leader.leads?(self)
+    end
 
-    # def leads?(individual)
-    #   id = if individual.is_a? self.class
-    #          individual.id
-    #        else
-    #          individual
-    #        end
-    #   individuals_led.include?(id)
-    # end
+    def leads?(individual)
+      id = if individual.is_a? self.class
+             individual.id
+           else
+             individual
+           end
+      individuals_led.include?(id)
+    end
 
-    # def individuals_led
-    #   unless @individuals_led
-    #     @individuals_led = Church::IndividualGroup.where(group_id: self.individual_groups.is_leader.pluck(:group_id)).collect {|g| g.individual_id}.uniq
-    #   end
+    def individuals_led
+      unless @individuals_led
+        @individuals_led = Church::IndividualGroup.where(group_id: self.individual_groups.is_leader.pluck(:group_id)).collect {|g| g.individual_id}.uniq
+      end
 
-    #   @individuals_led
-    # end
+      @individuals_led
+    end
 
     def visible_notes
       notes
@@ -319,42 +317,42 @@ module Church
       where(login: username)
     end
 
-    # def self.single_family_search_criteria(value, name = nil)
-    #   allowed_phone_lengths = [7,10]
-    #   barcode_match= arel_table[:checkin_barcode].eq(value)
+    def self.single_family_search_criteria(value, name = nil)
+      allowed_phone_lengths = [7,10]
+      barcode_match= arel_table[:checkin_barcode].eq(value)
 
-    #   search_value = "%#{value}%"
-    #   contact_match = arel_table[:phone_contact].matches(search_value)
-    #   home_match = arel_table[:phone_home].matches(search_value)
-    #   mobile_match = arel_table[:phone_mobile].matches(search_value)
-    #   phone_match = contact_match.or(home_match).or(mobile_match)
+      search_value = "%#{value}%"
+      contact_match = arel_table[:phone_contact].matches(search_value)
+      home_match = arel_table[:phone_home].matches(search_value)
+      mobile_match = arel_table[:phone_mobile].matches(search_value)
+      phone_match = contact_match.or(home_match).or(mobile_match)
 
-    #   unless name.blank?
-    #     name = "%#{name}%"
-    #     first_name_match = arel_table[:name_first].matches(name)
-    #     last_name_match = arel_table[:name_last].matches(name)
-    #     name_match = first_name_match.or(last_name_match)
-    #   end
+      unless name.blank?
+        name = "%#{name}%"
+        first_name_match = arel_table[:name_first].matches(name)
+        last_name_match = arel_table[:name_last].matches(name)
+        name_match = first_name_match.or(last_name_match)
+      end
 
-    #   search = barcode_match
-    #   if allowed_phone_lengths.include?(value.size)
-    #     search = search.or(phone_match)
-    #   end
-    #   if name_match
-    #     search = name_match.and(search)
-    #   end
+      search = barcode_match
+      if allowed_phone_lengths.include?(value.size)
+        search = search.or(phone_match)
+      end
+      if name_match
+        search = name_match.and(search)
+      end
 
-    #   where(search)
-    # end
+      where(search)
+    end
 
-    # def has_leadership_role?(identifier, campus)
-    #   role = Company::LeadershipRole.find_by(short_name: identifier)
-    #   leadership_roles.where(process_type_id: role.id, campus: campus).exists?
-    # end
+    def has_leadership_role?(identifier, campus)
+      role = Company::LeadershipRole.find_by(short_name: identifier)
+      leadership_roles.where(process_type_id: role.id, campus: campus).exists?
+    end
 
-    # def leadership_roles
-    #   @my_roles ||= Company::IndividualLeadershipRole.for_individual(self)
-    #   @my_roles
-    # end
+    def leadership_roles
+      @my_roles ||= Company::IndividualLeadershipRole.for_individual(self)
+      @my_roles
+    end
   end
 end
