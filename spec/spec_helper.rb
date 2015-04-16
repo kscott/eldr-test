@@ -10,10 +10,7 @@ Dotenv.load
 require 'rack/test'
 require 'rack'
 
-$LOAD_PATH.unshift File.join(__dir__, "..")
-$LOAD_PATH.unshift File.join(__dir__, "lib")
-require_all(File.join(__dir__, "..", "app"), File.join(__dir__, "..", "lib"))
-require_all(File.join(__dir__, "../config/initializers"))
+require_relative "../config/application"
 
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.

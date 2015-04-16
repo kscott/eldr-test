@@ -5,10 +5,11 @@ module Api
 
       helpers do
         def current_individual
-          @current_individual ||= ::Church::Individual.find(current_token.resource_owner_id) if current_token && current_token.resource_owner_id
+          @current_individual ||= ::Church::Individual.find(1) # current_token.resource_owner_id) if current_token && current_token.resource_owner_id
         end
       end
 
+      mount Me
       mount My::Base
       mount Campuses
       mount Groups

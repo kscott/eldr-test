@@ -6,9 +6,9 @@ module Api
 
         # doorkeeper_for :all, scopes: [:logged_in]
 
-        namespace :me do
-          mount V1::Me
-        end
+        # namespace :me do
+        #   mount Me
+        # end
 
         namespace :my do
           mount My::Groups
