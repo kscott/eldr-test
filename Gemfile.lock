@@ -175,6 +175,7 @@ DEPENDENCIES
   pry-byebug
   rack-oauth2
   rack-test
+  rake
   rb-fsevent
   require_all
   rerun

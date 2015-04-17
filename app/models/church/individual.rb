@@ -1,7 +1,6 @@
 module Church
   class Individual < ::Church::Base
     scope :active, -> { where("individual.inactive != '1'") }
-    SITE_KEY = "283136f4c0a55d06821f8dd236a4ddef"
     # devise :database_authenticatable
     self.table_name = "individual"
     belongs_to :campus
@@ -306,7 +305,7 @@ module Church
       users = find_by_username(username)
 
       users.each do |user|
-        if user && user.hashed_password == ::OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha512'), SITE_KEY, password + user.salt)
+        if user && user.hashed_password == ::OpenSSL::HMAC.hexdigest(OpenSSL::Digest.new('sha512'), ENV['SITE_KEY'], password + user.salt)
           return user
         end
       end

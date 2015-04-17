@@ -22,6 +22,7 @@ gem 'ri_cal'
 gem 'ice_cube'
 
 group :development, :test do
+  gem 'rake'
   gem 'rspec'
   gem 'rspec-nc'
   gem 'byebug'
