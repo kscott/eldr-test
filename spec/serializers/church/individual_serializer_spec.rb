@@ -5,37 +5,19 @@ describe Church::IndividualSerializer do
 
   subject (:serializer) { described_class.new(individual).to_hash }
 
-  it "has an id" do
-    expect(serializer[:id]).to eq(individual.id)
-  end
-  it "has a name" do
-    expect(serializer[:name]).to eq(individual.name)
-    expect(serializer[:first_name]).to eq(individual.name_first)
-    expect(serializer[:last_name]).to eq(individual.name_last)
-  end
-  it "has an email" do
-    expect(serializer[:email]).to eq(individual.email)
-  end
-  it "has a phone" do
-    expect(serializer[:phone]).to eq(individual.phone)
-  end
-  it "has a mobile phone" do
-    expect(serializer[:mobile_phone]).to eq(individual.mobile_phone)
-  end
-  it "has a contact phone" do
-    expect(serializer[:contact_phone]).to eq(individual.contact_phone)
+  %i(id name first_name last_name email phone mobile_phone contact_phone birthday anniversary).each do |key|
+    it "has a key named #{key}" do
+      expect(serializer.key?(key)).to be_truthy
+    end
+    it "has the correct value for #{key}" do
+      expect(serializer[key]).to eq(individual.send(key))
+    end
   end
   it "has a spouse" do
     expect(serializer[:spouse][:name]).to eq(individual.spouse.name)
   end
-  it "has a birthday" do
-    expect(serializer[:birthday]).to eq(individual.birthday)
-  end
-  it "has a anniversary" do
-    expect(serializer[:anniversary]).to eq(individual.anniversary)
-  end
   context "has an address" do
-    subject(:serializer) { described_class.new(individual, current_individual: Church::Individual.find(1)).to_hash[:address] }
+    subject(:serializer) { described_class.new(individual, current_individual: Church::Individual.current).to_hash[:address] }
     it "has a street" do
       expect(serializer[:street]).to eq(individual.mailing_address[:street])
     end
