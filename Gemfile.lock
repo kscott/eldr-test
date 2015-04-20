@@ -38,7 +38,7 @@ GEM
     coderay (1.1.0)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
-    colorize (0.7.5)
+    colorize (0.7.7)
     columnize (0.9.0)
     composite_primary_keys (8.1.0)
       activerecord (~> 4.2.0)
