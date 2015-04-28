@@ -7,13 +7,10 @@ describe Api::Base do
     end
   end
 
-  it "returns 200 for the /status endpoint" do
-    response = app.get "/status"
-    expect(response.status).to eq(200)
-  end
-
-  it "has a /me endpoint" do
-    response = app.get "/me"
-    expect(response.status).to eq(200)
+  %w(status /me /my /my/groups).each do |endpoint|
+    it "returns 200 for the #{endpoint} endpoint" do
+      response = app.get endpoint
+      expect(response.status).to eq(200)
+    end
   end
 end
