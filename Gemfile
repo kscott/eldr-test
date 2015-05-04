@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 gem 'unicorn'
+gem 'puma'
 gem 'dotenv'
 
 gem 'grape'
