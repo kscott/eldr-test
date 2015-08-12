@@ -3,7 +3,7 @@ module Api
     module Checkin
       class Base < ::Grape::API
         version 'v1', using: :accept_version_header
-        format :json
+        # format :json
         # doorkeeper_for :all
 
         before do

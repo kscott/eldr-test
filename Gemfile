@@ -1,6 +1,5 @@
 source 'https://rubygems.org'
 
-gem 'unicorn'
 gem 'puma'
 gem 'dotenv'
 
@@ -12,7 +11,7 @@ gem 'i18n'
 gem 'activerecord', require: 'active_record'
 gem 'mysql2'
 gem 'composite_primary_keys'
-gem 'aws-sdk', '~> 1'
+gem 'aws-sdk', '< 2'
 
 gem 'require_all'
 

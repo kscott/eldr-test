@@ -2,7 +2,7 @@ module Api
   module V1
     module Public
       class Base < ::Grape::API
-        format :json
+        # format :json
 
         # doorkeeper_for :all
 
